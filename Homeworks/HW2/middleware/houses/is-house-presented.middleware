@@ -1,0 +1,16 @@
+module.exports = (req, res, next) => {
+    try {
+        const{houseID} = req.params;
+
+        const isHousePresented = houses.find(house => house.id === + houseID);
+
+        if (!isHousePresented) {
+            throw new Error(`House with ${houseID} is not presented`)
+        }
+
+        req.house = isHousePresented;
+        next();
+    } catch (e) {
+        res.status(400).json(e.message)
+    }
+};
