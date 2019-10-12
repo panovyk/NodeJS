@@ -24,7 +24,7 @@ app.post('/auth/users',userMiddleware.checkUserLoginValidationMiddleware, user.l
 app.get('/users/:userID', userMiddleware.isUserPresentedMiddleware, user.getUserById);
 
 //HOUSE
-app.post('/', userMiddleware.checkUserValidationMiddleware, house.createHouse);
+app.post('/houses', userMiddleware.checkUserValidationMiddleware, house.createHouse);
 app.get('/houses/:houseID', houseMiddleware.isHousePresentedMiddleware, house.getHouseById);
 
 //MAIN PAGE NAVIGATION
