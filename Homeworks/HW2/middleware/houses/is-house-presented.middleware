@@ -1,8 +1,10 @@
-module.exports = (req, res, next) => {
-    try {
-        const{houseID} = req.params;
+const { provider } = require('../../dataBase');
 
-        const isHousePresented = houses.find(house => house.id === + houseID);
+module.exports = async (req, res, next) => {
+    try {
+        const {houseID} = req.params;
+        const query = `SELECT * FROM user WHERE id = ${houseID}`;
+        const isHousePresented = await provider().query(query);
 
         if (!isHousePresented) {
             throw new Error(`House with ${houseID} is not presented`)

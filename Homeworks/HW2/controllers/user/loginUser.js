@@ -1,7 +1,9 @@
-module.exports = (req, res) => {
-    console.log(req.body);
-    console.log(req.body.login);
-    console.log(req.body.password);
+module.exports= (req, res) => {
+    try {
+        const {id} = req.user;
 
-    res.render('login.hbs')
+        res.redirect(`users/${id}`);
+    }catch (e) {
+        res.json(e.message)
+    }
 };

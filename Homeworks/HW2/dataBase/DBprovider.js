@@ -1,12 +1,15 @@
-let mysql2 = require('mysql2');
+const pgp = require("pg-promise")();
 
-const pool = mysql2.createPool ({
-    connectionLimit: 10,
+const cn = {
     host: 'localhost',
-    user: 'postgres',
-    password: 'root',
+    port: 5432,
     database: 'lun',
-    port: '5432'
-});
+    user: 'postgres',
+    password: 'root'
+};
 
-module.exports = pool;
+
+const db = pgp(cn);
+
+module.exports = db;
+

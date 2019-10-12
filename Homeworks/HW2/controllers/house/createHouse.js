@@ -1,10 +1,14 @@
-module.exports =  (req, res) => {
-    const body = req.body;
-    const houses = [];
+const { provider } = require('../../dataBase');
 
-    body.house_id = houses.length + 1;
-    houses.push(body);
-    console.log(body);
+module.exports = async (req, res) => {
+    try {
+        const {city, street, price} = req.body;
+        const query = (`INSERT INTO house (city, street, price) VALUES (?, ?, ?)`);
 
-    res.render('newHouse.hbs')
+        await provider().query(query, [city, street, price]);
+
+        res.render('Ok');
+    } catch (e) {
+        res.json(e.message)
+    }
 };

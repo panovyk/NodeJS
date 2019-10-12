@@ -1,10 +1,12 @@
-module.exports = (req, res, next) => {
+const { provider } = require('../../dataBase');
+
+module.exports = async (req, res, next) => {
     try {
-        const{userID} = req.params;
+        const {userID} = req.params;
+        const query = `SELECT * FROM user WHERE id = ${userID}`;
+        const isUserPresented = await provider().query(query);
 
-        const isUserPresented = users.find(user => user.id === + userID);
-
-        if (!isUserPresented) {
+        if (!isUserPresented.length) {
             throw new Error(`User with ${userID} is not presented`)
         }
 

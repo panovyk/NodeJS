@@ -1,10 +1,14 @@
-module.exports = (req, res) => {
-    const body = req.body;
-    const users = [];
+const { provider } = require('../../dataBase');
 
-    body.user_id = users.length + 1;
-    users.push(body);
-    console.log(body);
+module.exports = async (req, res) => {
+    try {
+        const {email, name, password} = req.body;
+        const query = (`INSERT INTO user (email, name, password) VALUES (?, ?, ?)`);
 
-    res.render('register.hbs')
+        await provider().query(query, [email, name, password]);
+
+        res.render('login');
+    }catch (e) {
+        res.json(e.message)
+    }
 };

@@ -1,33 +1,42 @@
 const express = require('express');
+const path = require('path');
+const expHbs = require('express-handlebars');
 
 const app = express();
 
-app.set("view engine", "handlebars");
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'static')));
 
+app.engine('.hbs', expHbs({
+    extname: '.hbs',
+    defaultLayout: null
+}));
 
-const users = [];
+//MODULE
+const {user, house, navigation} = require('./controllers');
+const {user: userMiddleware, house: houseMiddleware} = require('./middleware');
+const { provider } = require('./dataBase');
 
-app.get('/login', (req, res)=>{
-    res.render('login.hbs')
-});
+//USER
+app.post('/register', userMiddleware.checkUserValidationMiddleware, user.createUser);
+app.post('/auth/users',userMiddleware.checkUserLoginValidationMiddleware, user.loginUser);
+app.get('/users/:userID', userMiddleware.isUserPresentedMiddleware, user.getUserById);
 
-app.get('/register', (req, res)=>{
-    res.render('register.hbs')
-});
+//HOUSE
+app.post('/', userMiddleware.checkUserValidationMiddleware, house.createHouse);
+app.get('/houses/:houseID', houseMiddleware.isHousePresentedMiddleware, house.getHouseById);
 
-app.get('/newHouse', (req, res)=>{
-    res.render('newHouse.hbs')
-});
+//MAIN PAGE NAVIGATION
+app.get('/', navigation.mainPage);
+app.get('/auth', navigation.loginPage);
+app.get('/register', navigation.registrationPage);
+app.get('/newHouse', navigation.newHousePage);
 
-app.get('/', (req, res)=>{
-   res.end ('This is Main Page')
-});
+//UNKNOWN PAGES
+app.all('*', navigation.unknownPage);
 
-
-app.listen (3030, ()=>{
+//CONNECTION TO HOST
+app.listen(3030, () => {
     console.log('Connected');
 });
-
