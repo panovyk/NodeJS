@@ -19,7 +19,7 @@ const {user: userMiddleware, house: houseMiddleware} = require('./middleware');
 const { provider } = require('./dataBase');
 
 //USER
-app.post('/register', userMiddleware.checkUserValidationMiddleware, user.createUser);
+app.post('/users', userMiddleware.checkUserValidationMiddleware, user.createUser);
 app.post('/auth/users',userMiddleware.checkUserLoginValidationMiddleware, user.loginUser);
 app.get('/users/:userID', userMiddleware.isUserPresentedMiddleware, user.getUserById);
 
