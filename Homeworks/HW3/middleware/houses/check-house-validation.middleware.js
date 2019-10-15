@@ -4,17 +4,17 @@ module.exports = async (req, res, next) => {
     try {
         const {city, street} = req.body;
         const HouseModel = dataBase.getModel('House');
-        const findingHouses = await HouseModel.findAll({
+        const foundHouse = await HouseModel.findAll({
             where: {
                 city, street
             },
         });
 
-        if(!findingHouses.length){
+        if(!foundHouse.length){
             throw new Error('Cant find any houses')
         }
 
-        req.houses = findingHouses;
+        req.houses = foundHouse;
         next()
     }catch (e) {
         res.status(404).json(e.message);

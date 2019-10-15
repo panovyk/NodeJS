@@ -4,18 +4,18 @@ module.exports = async (req, res, next) => {
     try { const {email, password} = req.body;
         const UserModel = dataBase.getModel('User');
 
-        const findingUser = await UserModel.findOne({
+        const foundUser = await UserModel.findOne({
             where: {
                 email, password
             },
             attributes:['id']
         });
 
-        if(!findingUser){
+        if(!foundUser){
             throw new Error('Incorrect email or password')
         }
 
-        req.user = findingUser.dataValues;
+        req.user = foundUser.dataValues;
         next()
 
     }  catch (e) {
