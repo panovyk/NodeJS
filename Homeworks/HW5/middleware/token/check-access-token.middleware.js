@@ -9,12 +9,12 @@ module.exports = (req, res, next) => {
             throw new Error('User without token')
         }
 
-        const  userWithToken = tokenVerify(token);
+        const userIdFromToken = tokenVerify(token);
 
-        req.user = userWithToken;
+        req.user = userIdFromToken;
         next()
     }
     catch (e) {
-        res.status(400).json(e.message)
+        res.status(403).json(e.message)
     }
 };
