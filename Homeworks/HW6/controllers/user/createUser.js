@@ -8,6 +8,6 @@ module.exports = async (req, res) => {
 
         res.json('User created');
     }catch (e) {
-        res.json(e.message)
+        res.status(400).json(e.message)
     }
 };

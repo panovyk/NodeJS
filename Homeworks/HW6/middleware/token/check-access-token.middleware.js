@@ -1,11 +1,10 @@
 const { tokenVerify } = require('../../helpers');
 
 module.exports = (req, res, next) => {
-
     try {
         const token = req.get('Authorization');
 
-        if(!token) {
+        if (!token) {
             throw new Error('User without token')
         }
 
@@ -13,8 +12,7 @@ module.exports = (req, res, next) => {
 
         req.user = userIdFromToken;
         next()
-    }
-    catch (e) {
+    } catch (e) {
         res.status(403).json(e.message)
     }
 };
