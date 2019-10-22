@@ -3,12 +3,12 @@ const { compareIdValidator } = require('../../validators');
 
 module.exports = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { userID } = req.params;
         const { id: userFromToken } = req.user;
 
-        compareIdValidator(id, userFromToken);
+        compareIdValidator(userID, userFromToken);
 
-        await userService.deleteUser(id);
+        await userService.deleteUser(userID);
 
         return res.json('Ok');
     } catch (e) {

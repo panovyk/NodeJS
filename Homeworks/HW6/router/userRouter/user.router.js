@@ -7,13 +7,16 @@ router.post('/',
     userMiddleware.checkUserValidationMiddleware,
     token.CheckAccessTokenMiddleware,
     user.createUser);
+
 router.get('/:userID',
-    userMiddleware.isUserPresentedMiddleware,
     token.CheckAccessTokenMiddleware,
+    userMiddleware.isUserPresentedMiddleware,
     user.getUserById);
+
 router.patch('/:userID',
     token.CheckAccessTokenMiddleware,
     user.updateUser);
+
 router.delete('/:userID',
     token.CheckAccessTokenMiddleware,
     user.deleteUser);

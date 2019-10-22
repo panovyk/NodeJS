@@ -6,10 +6,11 @@ module.exports = async (req, res) => {
         const {id} = req.user;
 
         Object.assign(newHouse, {userID: id});
-        await houseService.createHouse(houseToCreate);
+
+        await houseService.createHouse(newHouse);
 
         res.json(newHouse);
     } catch (e) {
-        res.json(e.message)
+        res.status(400).json(e.message)
     }
 };
