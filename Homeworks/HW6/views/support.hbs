@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<input type="text" class="RoomName" placeholder="Join room # (enter number)">
+<br>
+<input type="text" class="UserName" placeholder="Please, enter your name">
+<button class="joinRoom">Join room</button>
+
+<br>
+<textarea class="msgField" cols="20" rows="10" placeholder="Any questions?"
+          style="display: none"></textarea>
+<br>
+<button class="send_msg_btn" style="display: none">Send message to Support</button>
+<br>
+<button class="end_session" style="display: none">End current session</button>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    const socket = io();
+
+    const UserName = document.getElementsByClassName('UserName');
+    const RoomName = document.getElementsByClassName('RoomName');
+    const joinRoom = document.getElementsByClassName('joinRoom');
+    const msgField = document.getElementsByClassName('msgField');
+    const send_msg = document.getElementsByClassName('send_msg_btn');
+    const end_session = document.getElementsByClassName('end_session');
+
+    joinRoom.onclick = () => {
+        UserName.style.display = `none`;
+        RoomName.style.display = `none`;
+        joinRoom.style.display = `none`;
+        send_msg.style.display = `inline-block`;
+        msgField.style.display = `inline-block`;
+        send_msg.style.display = `inline-block`;
+        end_session.style.display = `inline-block`;
+    };
+    send_msg.onclick = () => {
+        socket.emit('message', {room_id: RoomName.value, message: send_msg.value, name: UserName.value})
+    };
+    socket.on('chat', data => {
+        const div = document.createElement('div');
+        div.style.border = '2px solid green';
+        div.innerText = `User:${data.name} \n Message:${data.message}`;
+        document.body.appendChild(div);
+        send_msg.value = '';
+    })
+</script>
+
+</body>
+</html>

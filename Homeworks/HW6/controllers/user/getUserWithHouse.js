@@ -2,12 +2,12 @@ const { userService } = require('../../service');
 
 module.exports = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { userID } = req.params;
 
-        const user = await userService.getUserWithHouse(id);
+        const user = await userService.getUserWithHouse(userID);
 
         res.json(user);
     } catch (e) {
-        res.json(e.message);
+        res.status(400).json(e.message);
     }
 };

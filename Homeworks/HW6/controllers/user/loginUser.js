@@ -1,8 +1,8 @@
 module.exports= (req, res) => {
     try {
-        const {id} = req.user;
+        const { userID } = req.user;
 
-        res.redirect(`users/${id}`);
+        res.redirect(`users/${ userID }`);
     }catch (e) {
         res.json(e.message)
     }

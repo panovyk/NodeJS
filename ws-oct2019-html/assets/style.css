@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.menu > li {
+    display: inline-block;
+    padding-bottom: 8px;
+    list-style: none;
+    margin: 0 auto;
+}
+
+a {
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.middle {
+    height: 75px;
+    display: block;
+    border-top: 2px silver solid;
+    border-bottom: 2px silver solid;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.menu {
+    text-align: center;
+    padding-bottom: 8px;
+    list-style: none;
+}

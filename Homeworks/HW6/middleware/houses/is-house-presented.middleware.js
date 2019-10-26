@@ -2,12 +2,12 @@ const { houseService } = require('../../service');
 
 module.exports = async (req, res, next) => {
     try {
-        const {house_id} = req.params;
+        const { houseId } = req.params;
 
-        const houseById = await houseService.getHouseById(house_id);
+        const houseById = await houseService.getHouseById(houseId);
 
         if (!houseById) {
-            throw new Error(`House with ID ${house_id} is not present`);
+            throw new Error(`House with ID ${houseId} is not present`);
         }
 
         req.house = houseById;

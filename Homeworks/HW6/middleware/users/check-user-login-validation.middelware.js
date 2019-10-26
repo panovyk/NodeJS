@@ -1,24 +1,21 @@
 const { userService } = require('../../service');
 
 module.exports = async (req, res, next) => {
-    try { const {email, password} = req.body;
-        const UserModel = userService.getModel('User');
-
-        const foundUser = await UserModel.findOne({
-            where: {
-                email, password
-            },
-            attributes:['id']
+    try {
+        const { email, password } = req.body;
+        const foundUser = await userService.getUserByParams({
+            email,
+            password
         });
 
-        if(!foundUser){
+        if (!foundUser) {
             throw new Error('Incorrect email or password')
         }
 
-        req.user = foundUser.dataValues;
+        req.user = foundUser;
         next()
 
-    }  catch (e) {
+    } catch (e) {
         res.status(400).json(e.message);
     }
 };

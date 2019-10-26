@@ -1,8 +1,11 @@
 const dataBase = require('../../dataBase');
 
-module.exports = async (id) => {
+module.exports = async (updateObject, id) => {
     const UserModel = dataBase.getModel('User');
-    const user = await UserModel.findByPk(id);
 
-    return user && user.dataValues;
+    return  UserModel.update(updateObject, {
+        where: {
+            id
+        }
+    })
 };
