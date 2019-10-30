@@ -1,0 +1,54 @@
+<input type="text" placeholder="What do you looking for?" (input)="onInput($event)">
+<button (click)="onClick()">Search</button>
+<div>
+  {{Value}}
+</div>
+
+<div>
+<button (click)="registerButton()" style="margin-top: 4rem">SignIN</button>
+<button (click)="loginButton()" style="margin-top: 4rem">SignUP</button>
+
+  <div>
+
+  </div>
+
+<div [ngSwitch]="RegisterClick" style="margin-top: 2rem">
+  <form *ngSwitchCase=true>
+    <input type="email" placeholder="enter your e-mail">
+    <br>
+    <input type="login" placeholder="enter your login">
+    <br>
+    <input type="password" placeholder="enter password">
+    <br>
+    <input type="password" placeholder="confirm password">
+    <br>
+    <input type="submit" placeholder="Register now">
+  </form>
+</div>
+
+<div [ngSwitch]="LoginClick" style= "margin-top: 2rem">
+  <form *ngSwitchCase=true>
+    <input type="email" placeholder="enter your login or e-mail">
+    <br>
+    <input type="password" placeholder="enter password">
+    <br>
+    <input type="submit" placeholder="Login">
+  </form>
+</div>
+
+<div *ngFor="let house of Houses" style="margin-top: 1rem; border: cadetblue solid">
+  city: {{house.city}}
+  <br>
+  street: {{house.street}}
+  <br>
+  rooms: {{house.rooms}}
+</div>
+
+
+<!--Необхідно зробити домашню сторінку нашого ЛУН.-->
+<!--Зробити настпуний функціонал:-->
+<!--1) Поле пошуку. Вводите щось в поле пошуку, натискаєте кнопочку і те, що ви ввели виводиться одразу під полем вводу.-->
+<!--2) Відмалювати реєстраційну та логінаційну форми.-->
+<!--Тобто при кліку на кнопку Login у вас має відкритись форма логінації.-->
+<!--А при натисканні на Register форма реєстрації (не має ьути видно двох форм одночасно).-->
+<!--3) Зробити масив будинків з якимись даннимим і відмалювати їх на головній сторінці (for of)-->
